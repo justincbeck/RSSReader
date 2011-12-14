@@ -19,4 +19,7 @@
 
 @property (readwrite, nonatomic, retain) UIActivityIndicatorView *activityIndicatorView;
 
+- (NSString *)stripHTML:(NSString *)string;
+- (NSString *)decodeXML:(NSString *)string;
+
 @end

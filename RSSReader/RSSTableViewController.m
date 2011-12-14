@@ -17,15 +17,17 @@
 
 const static NSDictionary *ENCODING;
 
+// ^(.*?)<div.*</div>(<img.*?>)?$
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
-        NSURL *url = [NSURL URLWithString: @"http://rss.cnn.com/rss/"];
+        NSURL *cnn = [NSURL URLWithString: @"http://rss.cnn.com/rss/"];
         
-        AFHTTPClient *client = [[AFHTTPClient alloc] initWithBaseURL:url];
+        AFHTTPClient *cnnClient = [[AFHTTPClient alloc] initWithBaseURL:cnn];
         
-        [client getPath:@"cnn_topstories.rss" parameters:NULL success:^(__unused AFHTTPRequestOperation *operation, id XML) {
+        [cnnClient getPath:@"cnn_topstories.rss" parameters:NULL success:^(__unused AFHTTPRequestOperation *operation, id XML) {
             NSXMLParser *parser = [[NSXMLParser alloc] initWithData:XML];
             [parser setDelegate:self];
             [parser parse];
@@ -85,12 +87,29 @@ const static NSDictionary *ENCODING;
     {
         NSLog(@"Title: %@", a.title);
         NSLog(@"Link: %@", a.link);
-        NSMutableString *desc = [a.description copy]; 
-        for (NSString *key in ENCODING) {
-            a.description = [NSString stringWithString:[desc stringByReplacingOccurrencesOfString:key withString:[ENCODING valueForKey:key]]];
-        }
-        NSLog(@"Description: %@", a.description);
+        NSLog(@"Description: %@", [self stripHTML:[self decodeXML:a.description]]);
     }
+}
+
+- (NSString *)decodeXML:(NSString *)string
+{
+    for (NSString *key in ENCODING) {
+        NSMutableString *desc = [string copy]; 
+        desc = [NSString stringWithString:[desc stringByReplacingOccurrencesOfString:key withString:[ENCODING valueForKey:key]]];
+        string = desc;
+    }
+    
+    return string;
+}
+
+- (NSString *)stripHTML:(NSString *)string
+{
+    NSError *error = nil;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(.*?)<div.*</div>(<img.*?>)?" options:NSRegularExpressionCaseInsensitive | NSRegularExpressionDotMatchesLineSeparators error:&error];
+    
+    NSString *modifiedString = [regex stringByReplacingMatchesInString:string options:0 range:NSMakeRange(0, [string length]) withTemplate:@"$1"];
+    
+    return modifiedString;
 }
 
 - (void)parser:(NSXMLParser *)parser foundIgnorableWhitespace:(NSString *)whitespaceString
