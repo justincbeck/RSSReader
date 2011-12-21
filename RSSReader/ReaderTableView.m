@@ -6,9 +6,9 @@
 //  Copyright (c) 2011 BeckProduct. All rights reserved.
 //
 
-#import "RSSTableView.h"
+#import "ReaderTableView.h"
 
-@implementation RSSTableView
+@implementation ReaderTableView
 
 - (id)initWithFrame:(CGRect)frame
 {

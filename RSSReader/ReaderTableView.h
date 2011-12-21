@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RSSTableView : UIView
+@interface ReaderTableView : UITableView
 
 @end

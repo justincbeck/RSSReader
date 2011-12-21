@@ -10,6 +10,7 @@
 #import "AFHTTPClient.h"
 #import "AFXMLRequestOperation.h"
 #import "Article.h"
+#import "ReaderTableView.h"
 
 @implementation ReaderTableViewController
 
@@ -135,7 +136,7 @@ const static NSDictionary *ENCODING;
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 460.0f)];
+    _tableView = [[ReaderTableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 460.0f)];
     self.view = _tableView;
     
     [_tableView release];

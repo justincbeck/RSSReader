@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "Article.h"
+#import "ReaderTableView.h"
 
 @interface ReaderTableViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, NSXMLParserDelegate>
 {
     UIActivityIndicatorView *_activityIndicatorView;
-    UITableView *_tableView;
+    ReaderTableView *_tableView;
     NSMutableArray *_content;
     Article *_article;
     Boolean isItem;
