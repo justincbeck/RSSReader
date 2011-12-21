@@ -12,7 +12,7 @@
 		98898A55149674D000866F00 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98898A54149674D000866F00 /* CoreGraphics.framework */; };
 		98898A5B149674D000866F00 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 98898A59149674D000866F00 /* InfoPlist.strings */; };
 		98898A5D149674D000866F00 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 98898A5C149674D000866F00 /* main.m */; };
-		98898A61149674D000866F00 /* JCBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 98898A60149674D000866F00 /* JCBAppDelegate.m */; };
+		98898A61149674D000866F00 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 98898A60149674D000866F00 /* AppDelegate.m */; };
 		98898A69149674D000866F00 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98898A68149674D000866F00 /* SenTestingKit.framework */; };
 		98898A6A149674D000866F00 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98898A50149674D000866F00 /* UIKit.framework */; };
 		98898A6B149674D000866F00 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98898A52149674D000866F00 /* Foundation.framework */; };
@@ -51,8 +51,8 @@
 		98898A5A149674D000866F00 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		98898A5C149674D000866F00 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		98898A5E149674D000866F00 /* RSSReader-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RSSReader-Prefix.pch"; sourceTree = "<group>"; };
-		98898A5F149674D000866F00 /* JCBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JCBAppDelegate.h; sourceTree = "<group>"; };
-		98898A60149674D000866F00 /* JCBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JCBAppDelegate.m; sourceTree = "<group>"; };
+		98898A5F149674D000866F00 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		98898A60149674D000866F00 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		98898A67149674D000866F00 /* RSSReaderTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RSSReaderTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		98898A68149674D000866F00 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		98898A70149674D000866F00 /* RSSReaderTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RSSReaderTests-Info.plist"; sourceTree = "<group>"; };
@@ -111,6 +111,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		985D6E98149A5FBD003F08B8 /* RSSTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				985D6E99149A5FE2003F08B8 /* RSSTableView */,
+				98A81211149695FE009395C4 /* RSSTableViewController.h */,
+				98A81212149695FE009395C4 /* RSSTableViewController.m */,
+			);
+			name = RSSTableViewController;
+			sourceTree = "<group>";
+		};
+		985D6E99149A5FE2003F08B8 /* RSSTableView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = RSSTableView;
+			sourceTree = "<group>";
+		};
+		985D6E9A149A6172003F08B8 /* RSSTableCell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = RSSTableCell;
+			sourceTree = "<group>";
+		};
 		98898A41149674D000866F00 = {
 			isa = PBXGroup;
 			children = (
@@ -145,10 +169,10 @@
 		98898A56149674D000866F00 /* RSSReader */ = {
 			isa = PBXGroup;
 			children = (
-				98898A5F149674D000866F00 /* JCBAppDelegate.h */,
-				98898A60149674D000866F00 /* JCBAppDelegate.m */,
-				98A81211149695FE009395C4 /* RSSTableViewController.h */,
-				98A81212149695FE009395C4 /* RSSTableViewController.m */,
+				985D6E9A149A6172003F08B8 /* RSSTableCell */,
+				985D6E98149A5FBD003F08B8 /* RSSTableViewController */,
+				98898A5F149674D000866F00 /* AppDelegate.h */,
+				98898A60149674D000866F00 /* AppDelegate.m */,
 				98898A57149674D000866F00 /* Supporting Files */,
 				98A95B1E1497FB38004852CD /* Article.h */,
 				98A95B1F1497FB38004852CD /* Article.m */,
@@ -330,7 +354,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				98898A5D149674D000866F00 /* main.m in Sources */,
-				98898A61149674D000866F00 /* JCBAppDelegate.m in Sources */,
+				98898A61149674D000866F00 /* AppDelegate.m in Sources */,
 				98898ACD1496853C00866F00 /* AFHTTPClient.m in Sources */,
 				98898ACE1496853C00866F00 /* AFHTTPRequestOperation.m in Sources */,
 				98898ACF1496853C00866F00 /* AFImageCache.m in Sources */,
@@ -404,6 +428,8 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INSTALL_PATH = "";
+				"INSTALL_PATH[sdk=*]" = /Applications;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -423,6 +449,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INSTALL_PATH = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;

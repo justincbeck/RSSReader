@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Article.h"
 
-@interface RSSTableViewController : UITableViewController <NSXMLParserDelegate>
+@interface RSSTableViewController : UIViewController <NSXMLParserDelegate>
 {
     NSMutableArray *content;
     Article *article;

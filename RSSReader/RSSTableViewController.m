@@ -17,8 +17,6 @@
 
 const static NSDictionary *ENCODING;
 
-// ^(.*?)<div.*</div>(<img.*?>)?$
-
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -28,11 +26,15 @@ const static NSDictionary *ENCODING;
         AFHTTPClient *cnnClient = [[AFHTTPClient alloc] initWithBaseURL:cnn];
         
         [cnnClient getPath:@"cnn_topstories.rss" parameters:NULL success:^(__unused AFHTTPRequestOperation *operation, id XML) {
+            
             NSXMLParser *parser = [[NSXMLParser alloc] initWithData:XML];
             [parser setDelegate:self];
             [parser parse];
+            
         } failure:^(__unused AFHTTPRequestOperation *operation, NSError *error) {
+            
             NSLog(@"%@", @"Failure");
+            
         }];
     }
     content = [[NSMutableArray alloc] init];
@@ -85,10 +87,12 @@ const static NSDictionary *ENCODING;
 {
     for (Article *a in content)
     {
-        NSLog(@"Title: %@", a.title);
-        NSLog(@"Link: %@", a.link);
-        NSLog(@"Description: %@", [self stripHTML:[self decodeXML:a.description]]);
+//        NSLog(@"Title: %@", a.title);
+//        NSLog(@"Link: %@", a.link);
+//        NSLog(@"Description: %@", [self stripHTML:[self decodeXML:a.description]]);
     }
+    
+    [[self tableView] reloadData];
 }
 
 - (NSString *)decodeXML:(NSString *)string
@@ -175,28 +179,26 @@ const static NSDictionary *ENCODING;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return [content count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];    
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-    }
+    NSLog(@"%@", ((Article *) [content objectAtIndex:[indexPath row]]).title);
     
-    // Configure the cell...
+    [[cell textLabel] setText:((Article *) [content objectAtIndex:[indexPath row]]).title];
+    [[cell textLabel] setFont:[UIFont fontWithName:@"Helvetica" size:12.0]];
+    [[cell textLabel] setLineBreakMode:UILineBreakModeWordWrap];
+    [[cell textLabel] setNumberOfLines:0];
     
     return cell;
 }

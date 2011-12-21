@@ -6,12 +6,12 @@
 //  Copyright (c) 2011 BeckProduct. All rights reserved.
 //
 
-#import "JCBAppDelegate.h"
+#import "AppDelegate.h"
 #import "RSSTableViewController.h"
 
 #import "AFNetworkActivityIndicatorManager.h"
 
-@implementation JCBAppDelegate
+@implementation AppDelegate
 
 @synthesize window = _window;
 
@@ -22,7 +22,7 @@
     
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
 
-    UITableViewController *viewController = [[[RSSTableViewController alloc] init] autorelease];
+    RSSTableViewController *viewController = [[[RSSTableViewController alloc] init] autorelease];
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];  
     self.window.backgroundColor = [UIColor whiteColor];
