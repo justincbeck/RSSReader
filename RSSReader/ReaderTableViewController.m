@@ -1,25 +1,25 @@
 //
-//  RSSTableViewController.m
+//  ReaderTableViewController.m
 //  RSSReader
 //
-//  Created by Justin Beck on 12/12/11.
+//  Created by Justin Beck on 12/21/11.
 //  Copyright (c) 2011 BeckProduct. All rights reserved.
 //
 
-#import "RSSTableViewController.h"
+#import "ReaderTableViewController.h"
 #import "AFHTTPClient.h"
 #import "AFXMLRequestOperation.h"
 #import "Article.h"
 
-@implementation RSSTableViewController
+@implementation ReaderTableViewController
 
 @synthesize activityIndicatorView = _activityIndicatorView;
 
 const static NSDictionary *ENCODING;
 
-- (id)init
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super init];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         NSURL *cnn = [NSURL URLWithString: @"http://rss.cnn.com/rss/"];
         
@@ -37,7 +37,8 @@ const static NSDictionary *ENCODING;
             
         }];
     }
-    content = [[NSMutableArray alloc] init];
+
+    _content = [[NSMutableArray alloc] init];
     
     ENCODING = [[NSDictionary alloc] initWithObjectsAndKeys:
                 @"&", @"&amp;",
@@ -53,18 +54,17 @@ const static NSDictionary *ENCODING;
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict
 {
     isItem = (isItem == YES || [elementName isEqualToString:@"item"]);
-    currentElement = [elementName copy];
+    _currentElement = [elementName copy];
     
     if ([elementName isEqualToString:@"item"]) {
-        article = [[Article alloc] init];
+        _article = [[Article alloc] init];
     }
 }
 
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI
-    qualifiedName:(NSString *)qualifiedName
+- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName
 {
     if ([elementName isEqualToString:@"item"]) {
-        [content addObject:article];
+        [_content addObject:_article];
         isItem = NO;
     }
 }
@@ -73,26 +73,26 @@ const static NSDictionary *ENCODING;
 {
     if (isItem)
     {
-        if ([currentElement isEqualToString:@"title"]) {
-            [article.title appendString:string];
-        } else if ([currentElement isEqualToString:@"link"]) {
-            [article.link appendString:string];
-        } else if ([currentElement isEqualToString:@"description"]) {
-            [article.description appendString:string];
+        if ([_currentElement isEqualToString:@"title"]) {
+            [_article.title appendString:string];
+        } else if ([_currentElement isEqualToString:@"link"]) {
+            [_article.link appendString:string];
+        } else if ([_currentElement isEqualToString:@"description"]) {
+            [_article.description appendString:string];
         }
     }
 }
 
 - (void)parserDidEndDocument:(NSXMLParser *)parser
 {
-    for (Article *a in content)
+    for (Article *a in _content)
     {
-//        NSLog(@"Title: %@", a.title);
-//        NSLog(@"Link: %@", a.link);
-//        NSLog(@"Description: %@", [self stripHTML:[self decodeXML:a.description]]);
+        NSLog(@"Title: %@", a.title);
+        NSLog(@"Link: %@", a.link);
+        NSLog(@"Description: %@", [self stripHTML:[self decodeXML:a.description]]);
     }
     
-    [[self tableView] reloadData];
+    [_tableView reloadData];
 }
 
 - (NSString *)decodeXML:(NSString *)string
@@ -131,42 +131,29 @@ const static NSDictionary *ENCODING;
 
 #pragma mark - View lifecycle
 
+
+// Implement loadView to create a view hierarchy programmatically, without using a nib.
+- (void)loadView
+{
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 460.0f)];
+    self.view = _tableView;
+    
+    [_tableView release];
+}
+
+/*
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
+*/
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -186,61 +173,22 @@ const static NSDictionary *ENCODING;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [content count];
+    return [_content count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];    
     
-    NSLog(@"%@", ((Article *) [content objectAtIndex:[indexPath row]]).title);
+    NSLog(@"%@", ((Article *) [_content objectAtIndex:[indexPath row]]).title);
     
-    [[cell textLabel] setText:((Article *) [content objectAtIndex:[indexPath row]]).title];
+    [[cell textLabel] setText:((Article *) [_content objectAtIndex:[indexPath row]]).title];
     [[cell textLabel] setFont:[UIFont fontWithName:@"Helvetica" size:12.0]];
     [[cell textLabel] setLineBreakMode:UILineBreakModeWordWrap];
     [[cell textLabel] setNumberOfLines:0];
     
     return cell;
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 

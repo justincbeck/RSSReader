@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "RSSTableViewController.h"
+#import "ReaderTableViewController.h"
 
 #import "AFNetworkActivityIndicatorManager.h"
 
@@ -22,7 +22,7 @@
     
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
 
-    RSSTableViewController *viewController = [[[RSSTableViewController alloc] init] autorelease];
+    ReaderTableViewController *viewController = [[[ReaderTableViewController alloc] init] autorelease];
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];  
     self.window.backgroundColor = [UIColor whiteColor];
