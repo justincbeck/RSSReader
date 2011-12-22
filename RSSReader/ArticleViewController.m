@@ -35,7 +35,8 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
-    ArticleView *articleView = [[ArticleView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 440.0f)];
+    UIWebView *articleView = [[UIWebView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 416.0f)];
+    articleView.scalesPageToFit = YES;
     self.view = articleView;
     
     [articleView autorelease];
@@ -45,8 +46,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [(ArticleView *) self.view title].text = _article.title;
-    [(ArticleView *) self.view description].text = _article.description;
+    [(UIWebView *) self.view loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:_article.link]]];
 }
 
 - (void)viewDidUnload

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Article.h"
 
-@interface ArticleView : UIView
+@interface ArticleView : UIWebView
 {
     UILabel *_title;
     UILabel *_description;
