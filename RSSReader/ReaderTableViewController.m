@@ -196,7 +196,7 @@ const static NSDictionary *ENCODING;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // TODO: Figure out how to get the cell height
-    return 44.0f;
+    return 69.0f;
 }
 
 #pragma mark - UITableViewDelegate methods

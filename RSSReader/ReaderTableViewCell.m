@@ -24,7 +24,7 @@
         
         [[self contentView] addSubview:_title];
         
-        _description = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 14.0f, 320.0f, 30.0f)];
+        _description = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 14.0f, 320.0f, 55.0f)];
         [_description setFont:[UIFont fontWithName:@"Helvetica" size:10.0]];
         [_description setLineBreakMode:UILineBreakModeWordWrap];
         [_description setNumberOfLines:0];
