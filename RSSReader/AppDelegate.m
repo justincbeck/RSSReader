@@ -17,20 +17,20 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    NSURLCache *urlCache = [[[NSURLCache alloc] initWithMemoryCapacity:1024 * 1024 diskCapacity:1024 * 1024 * 5 diskPath:nil] autorelease];
-    [NSURLCache setSharedURLCache:urlCache];
-    
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
 
-    ReaderTableViewController *viewController = [[[ReaderTableViewController alloc] init] autorelease];
+    ReaderTableViewController *viewController = [[ReaderTableViewController alloc] init];
     viewController.title = @"Reader";
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    [viewController release];
     
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];  
-    self.window.backgroundColor = [UIColor whiteColor];
-    self.window.rootViewController = navController;
-    [self.window makeKeyAndVisible];
+    _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];  
+    _window.backgroundColor = [UIColor whiteColor];
+    _window.rootViewController = navController;
+    [navController release];
+    
+    [_window makeKeyAndVisible];
     
     return YES;
 }

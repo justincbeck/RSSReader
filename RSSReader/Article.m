@@ -16,10 +16,21 @@
 
 - (id) init
 {
-    _title = [[NSString alloc] init];
-    _link = [[NSString alloc] init];
-    _description = [[NSString alloc] init];
+    self = [super init];
+    if (self)
+    {
+        _title = [[NSString alloc] init];
+        _link = [[NSString alloc] init];
+        _description = [[NSString alloc] init];
+    }
     return self;
+}
+
+- (void) dealloc
+{
+    [_title release];
+    [_link release];
+    [_description release];
 }
 
 @end

@@ -48,7 +48,7 @@ const static NSDictionary *ENCODING;
 - (NSString *)decodeXML:(NSString *)string
 {
     for (NSString *key in ENCODING) {
-        NSMutableString *desc = [string copy]; 
+        NSMutableString *desc = [[string copy] autorelease]; 
         desc = [NSString stringWithString:[desc stringByReplacingOccurrencesOfString:key withString:[ENCODING valueForKey:key]]];
         string = desc;
     }
@@ -58,9 +58,7 @@ const static NSDictionary *ENCODING;
 
 - (NSString *)stripHTML:(NSString *)string
 {
-    NSError *error = nil;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(.*?)<div.*</div>(<img.*?>)?" options:NSRegularExpressionCaseInsensitive | NSRegularExpressionDotMatchesLineSeparators error:&error];
-    
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(.*?)<div.*</div>(<img.*?>)?" options:NSRegularExpressionCaseInsensitive | NSRegularExpressionDotMatchesLineSeparators error:nil];
     NSString *modifiedString = [regex stringByReplacingMatchesInString:string options:0 range:NSMakeRange(0, [string length]) withTemplate:@"$1"];
 
     return modifiedString;
@@ -151,6 +149,8 @@ const static NSDictionary *ENCODING;
     };
     
     [cnnClient getPath:@"cnn_topstories.rss" parameters:NULL success: success failure: failure];
+    
+    [cnnClient release];
 }
 
 - (void)viewDidUnload
@@ -184,7 +184,7 @@ const static NSDictionary *ENCODING;
     ReaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (cell == nil)
     {
-        cell = [[ReaderTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
+        cell = [[[ReaderTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier] autorelease];
     }
     
     [[cell title] setText:[[_content objectAtIndex:[indexPath row]] title]];
