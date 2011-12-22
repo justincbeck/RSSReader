@@ -7,7 +7,6 @@
 //
 
 #import "ArticleViewController.h"
-#import "ArticleView.h"
 
 @implementation ArticleViewController
 

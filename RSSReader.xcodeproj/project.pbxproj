@@ -30,7 +30,6 @@
 		98898AD61496853C00866F00 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 98898ACC1496853C00866F00 /* UIImageView+AFNetworking.m */; };
 		98A95B201497FB38004852CD /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A95B1F1497FB38004852CD /* Article.m */; };
 		98ADDEC214A3761300982A39 /* ArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98ADDEC114A3761300982A39 /* ArticleViewController.m */; };
-		98ADDEC614A3763600982A39 /* ArticleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98ADDEC514A3763600982A39 /* ArticleView.m */; };
 		98ADDECD14A37A8D00982A39 /* ReaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 98ADDECC14A37A8D00982A39 /* ReaderTableViewCell.m */; };
 		98B8D8AA14A28E9D0031C939 /* ReaderTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B8D8A914A28E9D0031C939 /* ReaderTableViewController.m */; };
 /* End PBXBuildFile section */
@@ -88,8 +87,6 @@
 		98A95B1F1497FB38004852CD /* Article.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Article.m; sourceTree = "<group>"; };
 		98ADDEC014A3761300982A39 /* ArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleViewController.h; sourceTree = "<group>"; };
 		98ADDEC114A3761300982A39 /* ArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleViewController.m; sourceTree = "<group>"; };
-		98ADDEC414A3763600982A39 /* ArticleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleView.h; sourceTree = "<group>"; };
-		98ADDEC514A3763600982A39 /* ArticleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleView.m; sourceTree = "<group>"; };
 		98ADDECB14A37A8D00982A39 /* ReaderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderTableViewCell.h; sourceTree = "<group>"; };
 		98ADDECC14A37A8D00982A39 /* ReaderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReaderTableViewCell.m; sourceTree = "<group>"; };
 		98B8D8A814A28E9D0031C939 /* ReaderTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderTableViewController.h; sourceTree = "<group>"; };
@@ -245,20 +242,10 @@
 		98ADDEBE14A375D300982A39 /* ArticleViewController */ = {
 			isa = PBXGroup;
 			children = (
-				98ADDEC314A3761A00982A39 /* ArticleView */,
 				98ADDEC014A3761300982A39 /* ArticleViewController.h */,
 				98ADDEC114A3761300982A39 /* ArticleViewController.m */,
 			);
 			name = ArticleViewController;
-			sourceTree = "<group>";
-		};
-		98ADDEC314A3761A00982A39 /* ArticleView */ = {
-			isa = PBXGroup;
-			children = (
-				98ADDEC414A3763600982A39 /* ArticleView.h */,
-				98ADDEC514A3763600982A39 /* ArticleView.m */,
-			);
-			name = ArticleView;
 			sourceTree = "<group>";
 		};
 		98ADDEC714A37A0B00982A39 /* ReaderTableViewCell */ = {
@@ -391,7 +378,6 @@
 				98A95B201497FB38004852CD /* Article.m in Sources */,
 				98B8D8AA14A28E9D0031C939 /* ReaderTableViewController.m in Sources */,
 				98ADDEC214A3761300982A39 /* ArticleViewController.m in Sources */,
-				98ADDEC614A3763600982A39 /* ArticleView.m in Sources */,
 				98ADDECD14A37A8D00982A39 /* ReaderTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

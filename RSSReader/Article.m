@@ -13,6 +13,7 @@
 @synthesize title = _title;
 @synthesize link = _link;
 @synthesize description = _description;
+@synthesize read = _read;
 
 - (id) init
 {
@@ -22,6 +23,7 @@
         _title = [[NSString alloc] init];
         _link = [[NSString alloc] init];
         _description = [[NSString alloc] init];
+        _read = NO;
     }
     return self;
 }
@@ -31,6 +33,8 @@
     [_title release];
     [_link release];
     [_description release];
+    
+    [super dealloc];
 }
 
 @end

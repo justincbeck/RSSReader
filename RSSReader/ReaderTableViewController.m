@@ -153,6 +153,11 @@ const static NSDictionary *ENCODING;
     [cnnClient release];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [_tableView reloadData];
+}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -187,8 +192,15 @@ const static NSDictionary *ENCODING;
         cell = [[[ReaderTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier] autorelease];
     }
     
-    [[cell title] setText:[[_content objectAtIndex:[indexPath row]] title]];
-    [[cell description] setText:[[_content objectAtIndex:[indexPath row]] description]];
+    Article *article = [_content objectAtIndex:[indexPath row]];
+    if (article.read)
+    {
+        cell.title.textColor = [UIColor grayColor];
+        cell.description.textColor = [UIColor grayColor];
+    }
+    
+    [[cell title] setText:[article title]];
+    [[cell description] setText:[article description]];
     
     return cell;
 }
@@ -208,6 +220,9 @@ const static NSDictionary *ENCODING;
     [articleViewController setArticle:[_content objectAtIndex:[indexPath row]]];
     [self.navigationController pushViewController:articleViewController animated:YES];
     [articleViewController release];
+    
+    Article *article = [_content objectAtIndex:[indexPath row]];
+    article.read = YES;
 }
 
 @end
