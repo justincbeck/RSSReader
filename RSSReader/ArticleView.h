@@ -12,8 +12,10 @@
 @interface ArticleView : UIView
 {
     UILabel *_title;
+    UILabel *_description;
 }
 
 @property (nonatomic, retain) UILabel *title;
+@property (nonatomic, retain) UILabel *description;
 
 @end

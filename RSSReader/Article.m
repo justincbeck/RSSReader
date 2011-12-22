@@ -16,9 +16,9 @@
 
 - (id) init
 {
-    _title = [[NSMutableString alloc] init];
-    _link = [[NSMutableString alloc] init];
-    _description = [[NSMutableString alloc] init];
+    _title = [[NSString alloc] init];
+    _link = [[NSString alloc] init];
+    _description = [[NSString alloc] init];
     return self;
 }
 

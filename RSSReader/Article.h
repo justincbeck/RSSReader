@@ -10,8 +10,8 @@
 
 @interface Article : NSObject
 
-@property (nonatomic, retain) NSMutableString *title;
-@property (nonatomic, retain) NSMutableString *link;
-@property (nonatomic, retain) NSMutableString *description;
+@property (nonatomic, retain) NSString *title;
+@property (nonatomic, retain) NSString *link;
+@property (nonatomic, retain) NSString *description;
 
 @end

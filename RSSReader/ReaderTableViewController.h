@@ -17,6 +17,9 @@
     Article *_article;
     Boolean isItem;
     NSString *_currentElement;
+    NSMutableString *_articleTitle;
+    NSMutableString *_articleDescription;
+    NSMutableString *_articleLink;
 }
 
 @property (readwrite, nonatomic, retain) UIActivityIndicatorView *activityIndicatorView;

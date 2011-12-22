@@ -62,7 +62,7 @@ const static NSDictionary *ENCODING;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(.*?)<div.*</div>(<img.*?>)?" options:NSRegularExpressionCaseInsensitive | NSRegularExpressionDotMatchesLineSeparators error:&error];
     
     NSString *modifiedString = [regex stringByReplacingMatchesInString:string options:0 range:NSMakeRange(0, [string length]) withTemplate:@"$1"];
-    
+
     return modifiedString;
 }
 
@@ -74,6 +74,9 @@ const static NSDictionary *ENCODING;
     _currentElement = [elementName copy];
     
     if ([elementName isEqualToString:@"item"]) {
+        _articleTitle = [[NSMutableString alloc] init];
+        _articleDescription = [[NSMutableString alloc] init];
+        _articleLink = [[NSMutableString alloc] init];
         _article = [[Article alloc] init];
     }
 }
@@ -81,6 +84,9 @@ const static NSDictionary *ENCODING;
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName
 {
     if ([elementName isEqualToString:@"item"]) {
+        _article.title = [self decodeXML:[self stripHTML:_articleTitle]];
+        _article.description = [self decodeXML:[self stripHTML:_articleDescription]];
+        _article.link = _articleLink;
         [_content addObject:_article];
         isItem = NO;
     }
@@ -91,11 +97,11 @@ const static NSDictionary *ENCODING;
     if (isItem)
     {
         if ([_currentElement isEqualToString:@"title"]) {
-            [_article.title appendString:string];
+            [_articleTitle appendString:string];
         } else if ([_currentElement isEqualToString:@"link"]) {
-            [_article.link appendString:string];
+            [_articleLink appendString:string];
         } else if ([_currentElement isEqualToString:@"description"]) {
-            [_article.description appendString:string];
+            [_articleDescription appendString:string];
         }
     }
 }

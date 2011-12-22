@@ -46,6 +46,7 @@
 {
     [super viewDidLoad];
     [(ArticleView *) self.view title].text = _article.title;
+    [(ArticleView *) self.view description].text = _article.description;
 }
 
 - (void)viewDidUnload
