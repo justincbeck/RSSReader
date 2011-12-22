@@ -26,17 +26,21 @@ const static NSDictionary *ENCODING;
         
         AFHTTPClient *cnnClient = [[AFHTTPClient alloc] initWithBaseURL:cnn];
         
-        [cnnClient getPath:@"cnn_topstories.rss" parameters:NULL success:^(__unused AFHTTPRequestOperation *operation, id XML) {
+        void *success = ^(__unused AFHTTPRequestOperation *operation, id XML) {
             
             NSXMLParser *parser = [[NSXMLParser alloc] initWithData:XML];
             [parser setDelegate:self];
             [parser parse];
             
-        } failure:^(__unused AFHTTPRequestOperation *operation, NSError *error) {
+        };
+        
+        void *failure = ^(__unused AFHTTPRequestOperation *operation, NSError *error) {
             
-            NSLog(@"%@", @"Failure");
+            NSLog(@"%@", [error description]);
             
-        }];
+        };
+        
+        [cnnClient getPath:@"cnn_topstories.rss" parameters:NULL success: success failure: failure];
     }
 
     _content = [[NSMutableArray alloc] init];
@@ -86,13 +90,6 @@ const static NSDictionary *ENCODING;
 
 - (void)parserDidEndDocument:(NSXMLParser *)parser
 {
-    for (Article *a in _content)
-    {
-        NSLog(@"Title: %@", a.title);
-        NSLog(@"Link: %@", a.link);
-        NSLog(@"Description: %@", [self stripHTML:[self decodeXML:a.description]]);
-    }
-    
     [_tableView reloadData];
 }
 
@@ -137,7 +134,9 @@ const static NSDictionary *ENCODING;
 - (void)loadView
 {
     _tableView = [[ReaderTableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 460.0f)];
-    self.view = _tableView;
+    [_tableView setDataSource:self];
+    
+    [self setView:_tableView];
     
     [_tableView release];
 }
@@ -167,13 +166,11 @@ const static NSDictionary *ENCODING;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
     return [_content count];
 }
 
