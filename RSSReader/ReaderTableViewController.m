@@ -56,6 +56,37 @@ const static NSDictionary *ENCODING;
     return self;
 }
 
+- (void)didReceiveMemoryWarning
+{
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Release any cached data, images, etc that aren't in use.
+}
+
+- (NSString *)decodeXML:(NSString *)string
+{
+    for (NSString *key in ENCODING) {
+        NSMutableString *desc = [string copy]; 
+        desc = [NSString stringWithString:[desc stringByReplacingOccurrencesOfString:key withString:[ENCODING valueForKey:key]]];
+        string = desc;
+    }
+    
+    return string;
+}
+
+- (NSString *)stripHTML:(NSString *)string
+{
+    NSError *error = nil;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(.*?)<div.*</div>(<img.*?>)?" options:NSRegularExpressionCaseInsensitive | NSRegularExpressionDotMatchesLineSeparators error:&error];
+    
+    NSString *modifiedString = [regex stringByReplacingMatchesInString:string options:0 range:NSMakeRange(0, [string length]) withTemplate:@"$1"];
+    
+    return modifiedString;
+}
+
+#pragma mark - NSXMLParserDelegate methods
+
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict
 {
     isItem = (isItem == YES || [elementName isEqualToString:@"item"]);
@@ -93,38 +124,9 @@ const static NSDictionary *ENCODING;
     [_tableView reloadData];
 }
 
-- (NSString *)decodeXML:(NSString *)string
-{
-    for (NSString *key in ENCODING) {
-        NSMutableString *desc = [string copy]; 
-        desc = [NSString stringWithString:[desc stringByReplacingOccurrencesOfString:key withString:[ENCODING valueForKey:key]]];
-        string = desc;
-    }
-    
-    return string;
-}
-
-- (NSString *)stripHTML:(NSString *)string
-{
-    NSError *error = nil;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(.*?)<div.*</div>(<img.*?>)?" options:NSRegularExpressionCaseInsensitive | NSRegularExpressionDotMatchesLineSeparators error:&error];
-    
-    NSString *modifiedString = [regex stringByReplacingMatchesInString:string options:0 range:NSMakeRange(0, [string length]) withTemplate:@"$1"];
-    
-    return modifiedString;
-}
-
 - (void)parser:(NSXMLParser *)parser foundIgnorableWhitespace:(NSString *)whitespaceString
 {
     NSLog(@"IgnorableContent: %@", whitespaceString);
-}
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
 }
 
 #pragma mark - View lifecycle
@@ -176,16 +178,30 @@ const static NSDictionary *ENCODING;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];    
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
     
-    NSLog(@"%@", ((Article *) [_content objectAtIndex:[indexPath row]]).title);
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 14.0f)];
+    [title setText:((Article *) [_content objectAtIndex:[indexPath row]]).title];
+    [title setFont:[UIFont fontWithName:@"Helvetica" size:12.0]];
+    [title setLineBreakMode:UILineBreakModeWordWrap];
+    [title setNumberOfLines:0];
+
+    [[cell contentView] addSubview:title];
     
-    [[cell textLabel] setText:((Article *) [_content objectAtIndex:[indexPath row]]).title];
-    [[cell textLabel] setFont:[UIFont fontWithName:@"Helvetica" size:12.0]];
-    [[cell textLabel] setLineBreakMode:UILineBreakModeWordWrap];
-    [[cell textLabel] setNumberOfLines:0];
+    UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 14.0f, 320.0f, 30.0f)];
+    [description setText:((Article *) [_content objectAtIndex:[indexPath row]]).description];
+    [description setFont:[UIFont fontWithName:@"Helvetica" size:10.0]];
+    [description setLineBreakMode:UILineBreakModeWordWrap];
+    [description setNumberOfLines:0];
+    
+    [[cell contentView] addSubview:description];
     
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [indexPath row] * 20;
 }
 
 #pragma mark - Table view delegate
