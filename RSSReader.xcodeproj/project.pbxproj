@@ -84,7 +84,7 @@
 		98898ACC1496853C00866F00 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
 		98A95B1E1497FB38004852CD /* Article.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Article.h; sourceTree = "<group>"; };
 		98A95B1F1497FB38004852CD /* Article.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Article.m; sourceTree = "<group>"; };
-		98B8D8A014A28DB90031C939 /* ReaderTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = ReaderTableView.h; sourceTree = "<group>"; };
+		98B8D8A014A28DB90031C939 /* ReaderTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderTableView.h; sourceTree = "<group>"; };
 		98B8D8A114A28DB90031C939 /* ReaderTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReaderTableView.m; sourceTree = "<group>"; };
 		98B8D8A814A28E9D0031C939 /* ReaderTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderTableViewController.h; sourceTree = "<group>"; };
 		98B8D8A914A28E9D0031C939 /* ReaderTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReaderTableViewController.m; sourceTree = "<group>"; };
@@ -114,14 +114,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		985D6E98149A5FBD003F08B8 /* RSSTableViewController */ = {
+		985D6E98149A5FBD003F08B8 /* ReaderTableViewController */ = {
 			isa = PBXGroup;
 			children = (
 				985D6E99149A5FE2003F08B8 /* ReaderTableView */,
 				98B8D8A814A28E9D0031C939 /* ReaderTableViewController.h */,
 				98B8D8A914A28E9D0031C939 /* ReaderTableViewController.m */,
 			);
-			name = RSSTableViewController;
+			name = ReaderTableViewController;
 			sourceTree = "<group>";
 		};
 		985D6E99149A5FE2003F08B8 /* ReaderTableView */ = {
@@ -131,13 +131,6 @@
 				98B8D8A114A28DB90031C939 /* ReaderTableView.m */,
 			);
 			name = ReaderTableView;
-			sourceTree = "<group>";
-		};
-		985D6E9A149A6172003F08B8 /* RSSTableCell */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = RSSTableCell;
 			sourceTree = "<group>";
 		};
 		98898A41149674D000866F00 = {
@@ -174,8 +167,7 @@
 		98898A56149674D000866F00 /* RSSReader */ = {
 			isa = PBXGroup;
 			children = (
-				985D6E9A149A6172003F08B8 /* RSSTableCell */,
-				985D6E98149A5FBD003F08B8 /* RSSTableViewController */,
+				985D6E98149A5FBD003F08B8 /* ReaderTableViewController */,
 				98898A5F149674D000866F00 /* AppDelegate.h */,
 				98898A60149674D000866F00 /* AppDelegate.m */,
 				98898A57149674D000866F00 /* Supporting Files */,
