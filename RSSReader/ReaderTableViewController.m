@@ -7,10 +7,11 @@
 //
 
 #import "ReaderTableViewController.h"
+#import "ReaderTableViewCell.h"
+#import "ArticleViewController.h"
 #import "AFHTTPClient.h"
 #import "AFXMLRequestOperation.h"
 #import "Article.h"
-#import "ReaderTableView.h"
 
 @implementation ReaderTableViewController
 
@@ -22,37 +23,17 @@ const static NSDictionary *ENCODING;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        NSURL *cnn = [NSURL URLWithString: @"http://rss.cnn.com/rss/"];
+        _content = [[NSMutableArray alloc] init];
         
-        AFHTTPClient *cnnClient = [[AFHTTPClient alloc] initWithBaseURL:cnn];
-        
-        void *success = ^(__unused AFHTTPRequestOperation *operation, id XML) {
-            
-            NSXMLParser *parser = [[NSXMLParser alloc] initWithData:XML];
-            [parser setDelegate:self];
-            [parser parse];
-            
-        };
-        
-        void *failure = ^(__unused AFHTTPRequestOperation *operation, NSError *error) {
-            
-            NSLog(@"%@", [error description]);
-            
-        };
-        
-        [cnnClient getPath:@"cnn_topstories.rss" parameters:NULL success: success failure: failure];
+        ENCODING = [[NSDictionary alloc] initWithObjectsAndKeys:
+                    @"&", @"&amp;",
+                    @"<", @"&lt;",
+                    @">", @"&gt;",
+                    @"\"", @"&quot;",
+                    @"'", @"&apos;",
+                    NULL]; 
     }
 
-    _content = [[NSMutableArray alloc] init];
-    
-    ENCODING = [[NSDictionary alloc] initWithObjectsAndKeys:
-                @"&", @"&amp;",
-                @"<", @"&lt;",
-                @">", @"&gt;",
-                @"\"", @"&quot;",
-                @"'", @"&apos;",
-                NULL]; 
-    
     return self;
 }
 
@@ -131,25 +112,40 @@ const static NSDictionary *ENCODING;
 
 #pragma mark - View lifecycle
 
-
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
-    _tableView = [[ReaderTableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 460.0f)];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 460.0f)];
     [_tableView setDataSource:self];
+    [_tableView setDelegate:self];
     
     [self setView:_tableView];
     
     [_tableView release];
 }
 
-/*
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+    NSURL *cnn = [NSURL URLWithString: @"http://rss.cnn.com/rss/"];
+    
+    AFHTTPClient *cnnClient = [[AFHTTPClient alloc] initWithBaseURL:cnn];
+    
+    void *success = ^(__unused AFHTTPRequestOperation *operation, id XML) {
+        
+        NSXMLParser *parser = [[NSXMLParser alloc] initWithData:XML];
+        [parser setDelegate:self];
+        [parser parse];
+        
+    };
+    
+    void *failure = ^(__unused AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"%@", [error description]);
+        
+    };
+    
+    [cnnClient getPath:@"cnn_topstories.rss" parameters:NULL success: success failure: failure];
 }
-*/
 
 - (void)viewDidUnload
 {
@@ -178,44 +174,34 @@ const static NSDictionary *ENCODING;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+    NSString *reuseIdentifier = @"ReaderCell";
+    ReaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+    if (cell == nil)
+    {
+        cell = [[ReaderTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
+    }
     
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 14.0f)];
-    [title setText:((Article *) [_content objectAtIndex:[indexPath row]]).title];
-    [title setFont:[UIFont fontWithName:@"Helvetica" size:12.0]];
-    [title setLineBreakMode:UILineBreakModeWordWrap];
-    [title setNumberOfLines:0];
-
-    [[cell contentView] addSubview:title];
-    
-    UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 14.0f, 320.0f, 30.0f)];
-    [description setText:((Article *) [_content objectAtIndex:[indexPath row]]).description];
-    [description setFont:[UIFont fontWithName:@"Helvetica" size:10.0]];
-    [description setLineBreakMode:UILineBreakModeWordWrap];
-    [description setNumberOfLines:0];
-    
-    [[cell contentView] addSubview:description];
+    [[cell title] setText:[[_content objectAtIndex:[indexPath row]] title]];
+    [[cell description] setText:[[_content objectAtIndex:[indexPath row]] description]];
     
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [indexPath row] * 20;
+    // TODO: Figure out how to get the cell height
+    return 44.0f;
 }
 
-#pragma mark - Table view delegate
+#pragma mark - UITableViewDelegate methods
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
+    ArticleViewController *articleViewController = [[ArticleViewController alloc] initWithNibName:nil bundle:nil];
+    articleViewController.title = @"Article";
+    [articleViewController setArticle:[_content objectAtIndex:[indexPath row]]];
+    [self.navigationController pushViewController:articleViewController animated:YES];
+    [articleViewController release];
 }
 
 @end

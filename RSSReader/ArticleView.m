@@ -1,20 +1,23 @@
 //
-//  RSSTableView.m
+//  ArticleView.m
 //  RSSReader
 //
-//  Created by Justin Beck on 12/21/11.
+//  Created by Justin Beck on 12/22/11.
 //  Copyright (c) 2011 BeckProduct. All rights reserved.
 //
 
-#import "ReaderTableView.h"
+#import "ArticleView.h"
 
-@implementation ReaderTableView
+@implementation ArticleView
+
+@synthesize title = _title;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
+        _title = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 60.0f)];
+        [self addSubview:_title];
     }
     return self;
 }

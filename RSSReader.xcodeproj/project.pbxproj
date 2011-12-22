@@ -29,7 +29,9 @@
 		98898AD51496853C00866F00 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 98898ACA1496853C00866F00 /* AFXMLRequestOperation.m */; };
 		98898AD61496853C00866F00 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 98898ACC1496853C00866F00 /* UIImageView+AFNetworking.m */; };
 		98A95B201497FB38004852CD /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A95B1F1497FB38004852CD /* Article.m */; };
-		98B8D8A214A28DB90031C939 /* ReaderTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B8D8A114A28DB90031C939 /* ReaderTableView.m */; };
+		98ADDEC214A3761300982A39 /* ArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98ADDEC114A3761300982A39 /* ArticleViewController.m */; };
+		98ADDEC614A3763600982A39 /* ArticleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98ADDEC514A3763600982A39 /* ArticleView.m */; };
+		98ADDECD14A37A8D00982A39 /* ReaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 98ADDECC14A37A8D00982A39 /* ReaderTableViewCell.m */; };
 		98B8D8AA14A28E9D0031C939 /* ReaderTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B8D8A914A28E9D0031C939 /* ReaderTableViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -84,8 +86,12 @@
 		98898ACC1496853C00866F00 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
 		98A95B1E1497FB38004852CD /* Article.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Article.h; sourceTree = "<group>"; };
 		98A95B1F1497FB38004852CD /* Article.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Article.m; sourceTree = "<group>"; };
-		98B8D8A014A28DB90031C939 /* ReaderTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderTableView.h; sourceTree = "<group>"; };
-		98B8D8A114A28DB90031C939 /* ReaderTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReaderTableView.m; sourceTree = "<group>"; };
+		98ADDEC014A3761300982A39 /* ArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleViewController.h; sourceTree = "<group>"; };
+		98ADDEC114A3761300982A39 /* ArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleViewController.m; sourceTree = "<group>"; };
+		98ADDEC414A3763600982A39 /* ArticleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleView.h; sourceTree = "<group>"; };
+		98ADDEC514A3763600982A39 /* ArticleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleView.m; sourceTree = "<group>"; };
+		98ADDECB14A37A8D00982A39 /* ReaderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderTableViewCell.h; sourceTree = "<group>"; };
+		98ADDECC14A37A8D00982A39 /* ReaderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReaderTableViewCell.m; sourceTree = "<group>"; };
 		98B8D8A814A28E9D0031C939 /* ReaderTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderTableViewController.h; sourceTree = "<group>"; };
 		98B8D8A914A28E9D0031C939 /* ReaderTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReaderTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,20 +123,11 @@
 		985D6E98149A5FBD003F08B8 /* ReaderTableViewController */ = {
 			isa = PBXGroup;
 			children = (
-				985D6E99149A5FE2003F08B8 /* ReaderTableView */,
+				98ADDEC714A37A0B00982A39 /* ReaderTableViewCell */,
 				98B8D8A814A28E9D0031C939 /* ReaderTableViewController.h */,
 				98B8D8A914A28E9D0031C939 /* ReaderTableViewController.m */,
 			);
 			name = ReaderTableViewController;
-			sourceTree = "<group>";
-		};
-		985D6E99149A5FE2003F08B8 /* ReaderTableView */ = {
-			isa = PBXGroup;
-			children = (
-				98B8D8A014A28DB90031C939 /* ReaderTableView.h */,
-				98B8D8A114A28DB90031C939 /* ReaderTableView.m */,
-			);
-			name = ReaderTableView;
 			sourceTree = "<group>";
 		};
 		98898A41149674D000866F00 = {
@@ -167,6 +164,7 @@
 		98898A56149674D000866F00 /* RSSReader */ = {
 			isa = PBXGroup;
 			children = (
+				98ADDEBE14A375D300982A39 /* ArticleViewController */,
 				985D6E98149A5FBD003F08B8 /* ReaderTableViewController */,
 				98898A5F149674D000866F00 /* AppDelegate.h */,
 				98898A60149674D000866F00 /* AppDelegate.m */,
@@ -242,6 +240,34 @@
 				98898AB61496853C00866F00 /* AFNetworking */,
 			);
 			name = Vendor;
+			sourceTree = "<group>";
+		};
+		98ADDEBE14A375D300982A39 /* ArticleViewController */ = {
+			isa = PBXGroup;
+			children = (
+				98ADDEC314A3761A00982A39 /* ArticleView */,
+				98ADDEC014A3761300982A39 /* ArticleViewController.h */,
+				98ADDEC114A3761300982A39 /* ArticleViewController.m */,
+			);
+			name = ArticleViewController;
+			sourceTree = "<group>";
+		};
+		98ADDEC314A3761A00982A39 /* ArticleView */ = {
+			isa = PBXGroup;
+			children = (
+				98ADDEC414A3763600982A39 /* ArticleView.h */,
+				98ADDEC514A3763600982A39 /* ArticleView.m */,
+			);
+			name = ArticleView;
+			sourceTree = "<group>";
+		};
+		98ADDEC714A37A0B00982A39 /* ReaderTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				98ADDECB14A37A8D00982A39 /* ReaderTableViewCell.h */,
+				98ADDECC14A37A8D00982A39 /* ReaderTableViewCell.m */,
+			);
+			name = ReaderTableViewCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -363,8 +389,10 @@
 				98898AD51496853C00866F00 /* AFXMLRequestOperation.m in Sources */,
 				98898AD61496853C00866F00 /* UIImageView+AFNetworking.m in Sources */,
 				98A95B201497FB38004852CD /* Article.m in Sources */,
-				98B8D8A214A28DB90031C939 /* ReaderTableView.m in Sources */,
 				98B8D8AA14A28E9D0031C939 /* ReaderTableViewController.m in Sources */,
+				98ADDEC214A3761300982A39 /* ArticleViewController.m in Sources */,
+				98ADDEC614A3763600982A39 /* ArticleView.m in Sources */,
+				98ADDECD14A37A8D00982A39 /* ReaderTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

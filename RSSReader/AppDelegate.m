@@ -23,10 +23,13 @@
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
 
     ReaderTableViewController *viewController = [[[ReaderTableViewController alloc] init] autorelease];
+    viewController.title = @"Reader";
+    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];  
     self.window.backgroundColor = [UIColor whiteColor];
-    self.window.rootViewController = viewController;
+    self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
     
     return YES;
